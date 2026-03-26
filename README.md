@@ -45,6 +45,7 @@ text
 得出字段数为 2。
 
 ![字段](screenshots/4.png)
+
 ![字段](screenshots/5.png)
 
 3. 获取当前数据库名和用户
