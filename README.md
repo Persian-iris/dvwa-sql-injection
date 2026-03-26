@@ -75,15 +75,11 @@ text
 
 ![字段](screenshots/7.png)
 
-user	password (MD5)
-admin	5f4dcc3b5aa765d61d8327deb882cf99
-gordonb	e99a18c428cb38d5f260853678922e03
-1337	8d3533d75ae2c3966d7e0d4fcc69216b
-pablo	0d107d09f5bbe40cade3de5c71e9e9b7
-smithy	5f4dcc3b5aa765d61d8327deb882cf99
+
 （密码哈希可通过在线 MD5 解密得到明文，例如 admin 的密码为 password）
 
 📝 实验总结
+
 漏洞成因：应用程序直接将用户输入拼接到 SQL 查询中，未做任何过滤或参数化处理。
 
 利用条件：原查询返回的列数需与 UNION 后的查询一致（此处为 2 列）。
@@ -91,17 +87,22 @@ smithy	5f4dcc3b5aa765d61d8327deb882cf99
 风险：可窃取数据库中所有表的数据，甚至通过 INTO OUTFILE 写入 WebShell。
 
 🛡 防御方法
+
 使用参数化查询（预编译语句），示例（PHP PDO）：
 
 php
+
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$id]);
+
 🔗 后续计划
+
 完成 DVWA 的 XSS、文件上传、盲注等模块
 
 尝试 PortSwigger 的 SQL 注入实验室
 
 📂 附件
+
 详细操作截图（见 screenshots 文件夹）
 
 所有使用的 SQL 注入 payload 见 [payloads.txt](payloads.txt)
