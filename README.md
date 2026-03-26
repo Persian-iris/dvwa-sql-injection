@@ -88,5 +88,4 @@ $stmt->execute([$id]);
 📂 附件
 详细操作截图（见 screenshots 文件夹）
 
-所有 payload 记录（见 payloads.txt）
-
+所有使用的 SQL 注入 payload 见 [payloads.txt](payloads.txt)
