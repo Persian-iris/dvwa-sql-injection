@@ -27,11 +27,10 @@ Web 服务：Apache 2.4 + MySQL (MariaDB) + PHP 8.2
 输入 1 正常返回；输入 1' 报错，确认存在 SQL 注入漏洞。
 
 ![代码](screenshots/1.png)
-https://screenshots/1.png
 
-https://screenshots/2.png
+![代码](screenshots/2.png)
 
-https://screenshots/3.png
+![1'](screenshots/3.png)
 2. 判断字段数
 
 使用 ORDER BY 猜测原查询的列数：
