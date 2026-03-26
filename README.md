@@ -46,7 +46,7 @@ text
 
 ![字段](screenshots/4.png)
 
-![报错](screenshots/ 5.png)
+![报错](screenshots/5.png)
 
 3. 获取当前数据库名和用户
 text
@@ -72,7 +72,7 @@ text
 6. 导出用户名和密码
 text
 1' UNION SELECT user, password FROM users#
-结果：
+
 ![字段](screenshots/9.png)
 
 user	password (MD5)
