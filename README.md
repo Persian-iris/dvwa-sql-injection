@@ -148,12 +148,15 @@ html
 <img src=x onerror=alert(1)>
 ```
 同样会触发弹窗。
-![XSS](screenshots/xss/1.png)
-思考：反射型 XSS 通常需要诱使用户点击恶意链接，例如：
 
+![XSS](screenshots/xss/1.png)
+
+思考：反射型 XSS 通常需要诱使用户点击恶意链接，例如：
+``
 text
 http://127.0.0.1/DVWA/vulnerabilities/xss_r/?name=<script>alert('XSS')</script>
-你可以复制这个链接到浏览器地址栏试试（注意 URL 编码问题，但 DVWA 会自动处理）。
+```
+可以复制这个链接到浏览器地址栏试试（注意 URL 编码问题，但 DVWA 会自动处理）。
 
 ![XSS](screenshots/xss/XSS.png)
 
@@ -174,8 +177,11 @@ html
 <script>alert('Stored XSS')</script>
 ```
 提交。页面会立即弹窗，并且这条留言被保存。刷新页面，弹窗再次出现，说明每次加载页面都会执行。
+
 ![XSS](screenshots/xss/刷新前.png)
+
 ![XSS](screenshots/xss/xss显示.png)
+
 ![XSS](screenshots/xss/刷新后.png)
 
 尝试窃取 Cookie 的 payload（展示危害）：
