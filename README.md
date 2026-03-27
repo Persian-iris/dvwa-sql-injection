@@ -152,7 +152,7 @@ html
 ![XSS](screenshots/xss/1.png)
 
 思考：反射型 XSS 通常需要诱使用户点击恶意链接，例如：
-``
+```
 text
 http://127.0.0.1/DVWA/vulnerabilities/xss_r/?name=<script>alert('XSS')</script>
 ```
