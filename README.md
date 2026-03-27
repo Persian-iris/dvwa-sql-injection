@@ -148,7 +148,6 @@ $stmt->execute([$id]);
 输入 `1' AND 1=1#` → 页面显示 “User ID exists in the database.”  
 输入 `1' AND 1=2#` → 显示 “User ID is MISSING from the database.”  
 
-![1](screenshots/sql盲注/1.png)
 ![1](screenshots/sql盲注/2.png)
 
 说明存在布尔盲注。
@@ -160,7 +159,7 @@ $stmt->execute([$id]);
 1' AND LENGTH(database())=4# → EXISTS
 
 最终得到长度 4（dvwa）。
-
+![1](screenshots/sql盲注/1.png)
 ![1](screenshots/sql盲注/猜长度.png)
 
 #### 3. 猜数据库名字符
