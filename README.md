@@ -99,10 +99,12 @@ text
 
 使用参数化查询（预编译语句），示例（PHP PDO）：
 
+```
 php
 
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$id]);
+```
 
 **🔗 后续计划**
 
