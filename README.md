@@ -159,6 +159,7 @@ $stmt->execute([$id]);
 1' AND LENGTH(database())=4# → EXISTS
 
 最终得到长度 4（dvwa）。
+
 ![1](screenshots/sql盲注/1.png)
 ![1](screenshots/sql盲注/猜长度.png)
 
