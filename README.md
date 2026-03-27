@@ -148,8 +148,8 @@ $stmt->execute([$id]);
 输入 `1' AND 1=1#` → 页面显示 “User ID exists in the database.”  
 输入 `1' AND 1=2#` → 显示 “User ID is MISSING from the database.”  
 
-！[1](screenshots/sql盲注/1.png)
-！[1](screenshots/sql盲注/2.png)
+![1](screenshots/sql盲注/1.png)
+![1](screenshots/sql盲注/2.png)
 
 说明存在布尔盲注。
 
@@ -161,7 +161,7 @@ $stmt->execute([$id]);
 
 最终得到长度 4（dvwa）。
 
-！[1](screenshots/sql盲注/猜长度.png)
+![1](screenshots/sql盲注/猜长度.png)
 
 #### 3. 猜数据库名字符
 使用 `SUBSTRING` 和 `ASCII` 逐字符猜测。  
@@ -171,7 +171,7 @@ $stmt->execute([$id]);
 
 通过不断调整数值，最终确定 ASCII 值为 100 → 字符 `d`。
 
-！[1](screenshots/sql盲注/判断条件测长度.png)
+![1](screenshots/sql盲注/判断条件测长度.png)
 
 #### 4. 猜表名、列名、数据
 类似方法，将 `database()` 替换为其他查询，例如：
