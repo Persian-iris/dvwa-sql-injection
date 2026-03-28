@@ -308,3 +308,32 @@ html
 ![XSS](screenshots/xss/cookie.png)
 
 注意：如果浏览器阻止了弹窗（如 Chrome 会限制非用户触发的 alert），可以换用 console.log('xss')，然后按 F12 打开开发者工具查看控制台输出。
+
+
+ ## DVWA Medium 级别绕过
+
+### SQL 注入 (Medium)
+
+- 防护机制：`addslashes()` 转义单引号
+- 绕过方式：利用数字型注入，无需引号
+- 成功 payload：
+- 
+  ```sql
+  1 OR 1=1#
+  1 UNION SELECT database(), user()#
+  1 UNION SELECT user, password FROM users#
+  ```
+  ![](screenshots/sql_injection/1m.png)
+
+## 文件上传漏洞
+
+### Low 级别
+
+- 无限制上传，直接上传 PHP 文件，可执行。
+- 上传路径：`http://127.0.0.1/DVWA/hackable/uploads/shell.php`
+
+### Medium 级别
+
+- 防护：仅检查 `Content-Type` 是否为 `image/jpeg` 或 `image/png`。
+- 绕过：使用 Burp 拦截，将 `Content-Type` 改为 `image/jpeg`。
+- 上传成功，访问文件仍可执行 PHP 代码。
