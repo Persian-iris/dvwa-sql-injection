@@ -337,3 +337,8 @@ html
 - 防护：仅检查 `Content-Type` 是否为 `image/jpeg` 或 `image/png`。
 - 绕过：使用 Burp 拦截，将 `Content-Type` 改为 `image/jpeg`。
 - 上传成功，访问文件仍可执行 PHP 代码。
+
+### Day  小结
+- 完成 Medium 级别 SQL 注入绕过（数字型、UNION 注入），记录 payload。
+- 完成文件上传 Low/Medium 实验，学会用 Burp 修改 Content-Type 绕过 MIME 校验。
+- 熟悉 Burp Suite 的基本操作（拦截、修改、Repeater）。
