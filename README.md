@@ -331,12 +331,17 @@ html
 
 - 无限制上传，直接上传 PHP 文件，可执行。
 - 上传路径：`http://127.0.0.1/DVWA/hackable/uploads/shell.php`
+- 
+- ![](screenshots/sql_injection/l_uploads.png)
 
 ### Medium 级别
 
 - 防护：仅检查 `Content-Type` 是否为 `image/jpeg` 或 `image/png`。
 - 绕过：使用 Burp 拦截，将 `Content-Type` 改为 `image/jpeg`。
 - 上传成功，访问文件仍可执行 PHP 代码。
+
+- ![](screenshots/uploads/m_brup.png)
+- ![](screenshots/uploads/m_uploads.png)
 
 ### Day  小结
 - 完成 Medium 级别 SQL 注入绕过（数字型、UNION 注入），记录 payload。
