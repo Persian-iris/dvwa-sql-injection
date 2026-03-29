@@ -347,3 +347,74 @@ html
 - 完成 Medium 级别 SQL 注入绕过（数字型、UNION 注入），记录 payload。
 - 完成文件上传 Low/Medium 实验，学会用 Burp 修改 Content-Type 绕过 MIME 校验。
 - 熟悉 Burp Suite 的基本操作（拦截、修改、Repeater）。
+
+
+## 命令注入（Command Injection）
+
+### 概述
+
+命令注入是指攻击者通过构造恶意输入，在服务器上执行任意系统命令。DVWA 的 Command Injection 模块模拟了常见的 ping 功能，不同安全级别展示了不同的防护与绕过方式。
+
+### Low 级别（无防护）
+
+- **现象**：直接拼接用户输入到 `system()` 函数中，无任何过滤。
+- **成功 payload**：
+127.0.0.1; whoami
+127.0.0.1; ls -la
+127.0.0.1; cat /etc/passwd
+  
+ - **截图**：
+ - 
+- ![](screenshots/命令注入/L_1.png)
+- ![](screenshots/命令注入/L_2.png)
+- ![](screenshots/命令注入/L_3.png)
+- ![](screenshots/命令注入/L_4.png)
+- ![](screenshots/命令注入/L_5.png)
+- ![](screenshots/命令注入/L_6.png)
+
+### Medium 级别（黑名单过滤部分分隔符）
+
+- **防护机制**：使用 `str_replace` 将 `&&` 和 `;` 替换为空，但未过滤 `|`、`&`。
+- **绕过方式**：使用 `|` 或 `&` 作为命令分隔符。
+- **成功 payload**：
+- 127.0.0.1 | whoami
+  127.0.0.1 & whoami
+
+  - **截图**：  
+- ![](screenshots/命令注入/M_1.png)
+- ![](screenshots/命令注入/M_2.png)
+
+### High 级别（更严格的黑名单）
+
+- **防护机制**：使用正则表达式 `/[&|;$`()\n\r\t\v\f\"]/` 删除大多数特殊字符，包括换行符（`\n`）也可能被过滤。
+- **绕过方式**：在某些版本中，换行符 `%0a`（URL 编码）可能被遗漏；另外尝试 `$()` 或反引号。
+- **成功 payload（示例）**：
+- 127.0.0.1%0awhoami
+- 127.0.0.1%0aw\hoami
+
+- - **注意**：High 级别的有效性取决于具体的过滤规则，不同版本可能存在差异。
+
+### Burp Intruder 自动化测试
+
+使用 Intruder 可以批量发送 payload，快速筛选出有效的注入点。
+
+1. **准备 payload 列表**（见 `payloads/command_injection_payloads.txt`）。
+2. **拦截请求** → **Send to Intruder**。
+3. **设置变量位置**：标记参数值（如 `127.0.0.1`）。
+4. **加载 payload 列表** → **Start attack**。
+5. **分析结果**：
+ - 按 **Length** 排序，找出响应长度异常的请求。
+ - 搜索关键词 `uid=`、`www-data`、`root` 等。
+ - 对于时间盲注，按 **Time** 排序检查延迟。
+ - 
+- **攻击结果示例**：(LOW、MEDIUM、HIGH）
+- ![](screenshots/命令注入/B_L.png)
+- ![](screenshots/命令注入/B_M.png)
+- ![](screenshots/命令注入/B_H.png)
+
+### 防御总结
+
+- 尽量避免直接调用系统命令，使用语言内置 API。
+- 若必须调用，使用列表参数形式（如 Python 的 `subprocess.run(["ping", ip])`）或严格转义输入。
+- 使用白名单验证输入格式（如 IP 地址正则）。
+- 运行 Web 服务的进程使用最低权限用户。
