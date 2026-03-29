@@ -332,7 +332,7 @@ html
 - 无限制上传，直接上传 PHP 文件，可执行。
 - 上传路径：`http://127.0.0.1/DVWA/hackable/uploads/shell.php`
 - 
-- ![](screenshots/sql_injection/l_uploads.png)
+- ![](screenshots/uploads/l_uploads.png)
 
 ### Medium 级别
 
